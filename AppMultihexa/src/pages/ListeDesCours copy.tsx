@@ -30,6 +30,11 @@ const ListeDesCours: React.FC = () => {
                     <IonButton onClick={handlerChangerPage}>
                         Cours Objectifs
                     </IonButton> 
+                    <div>
+                        {/* 2e facon de faire un btn routeur en utilisant une methode useRoute
+                        dans ListeDesCoursCopy */}
+                        {/* <IonButton routerLink ="/cours-objectifs">Cours Objectifs</IonButton>  */}
+                     </div>
                 </div>
             </IonContent>
         </IonPage>

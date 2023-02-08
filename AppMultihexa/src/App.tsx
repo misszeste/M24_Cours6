@@ -1,14 +1,13 @@
-
-import { IonApp,IonRouterOutlet, IonIcon,IonTabBar, IonTabButton, setupIonicReact, IonLabel, IonTabs } from '@ionic/react';
-import ListeDesCours from './pages/ListeDesCours';
-import CoursObjectifs from './pages/CoursObjectifs';
-import TousLesObjectifs from './pages/TousLesObjectifs';
-import { IonReactRouter } from '@ionic/react-router';
 import { Redirect, Route } from 'react-router';
+import { IonApp,IonRouterOutlet, setupIonicReact } from '@ionic/react';
 
-// Pour la gestion des icons
-import {list, trophyOutline} from 'ionicons/icons'
+import { IonReactRouter } from '@ionic/react-router';
 
+
+// Pages
+import Filtres from './pages/Filtres';
+import CoursTabs from './pages/CoursTabs';
+import Tiroir from './components/Tiroir';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -34,46 +33,25 @@ import './theme/theme.css'
 
 
 
+
 setupIonicReact();
 
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
-      <IonTabs>
-        <IonRouterOutlet>
 
-          {/* Route pas défautl -> path="" */}
-          <Route path="/" exact>
-            {/* Appel de la pages ListeDesCours.tsx */}
-            <ListeDesCours/>           
-          </Route>
+      {/* Appel du component Tiroir */}
+      <Tiroir/>
+      <IonRouterOutlet id='main'>
+        <Route path="/filtres" exact>
+          <Filtres />
+        </Route>
+        <Route path="/cours" >
+          <CoursTabs />
+        </Route>  
+        <Redirect path="/" to="/cours/liste" exact />     
+      </IonRouterOutlet>  
 
-          <Route path="/cours-objectifs" exact>
-            {/* Appel de la pages CoursObjectifs.tsx */}
-            <CoursObjectifs/>      
-          </Route> 
-
-          {/* Appel de la pages TousLesObjectifs.tsx */}
-          <Route path="/tous-objectifs" exact>         
-            <TousLesObjectifs/>            
-          </Route> 
-
-          <Redirect to="/cours" />
-          
-        </IonRouterOutlet>
-
-        <IonTabBar slot="bottom">
-          <IonTabButton  tab="tous-objectifs" href='/tous-objectifs'>
-            <IonIcon icon={list}/>
-            <IonLabel>Tous les objectifs</IonLabel>
-          </IonTabButton>
-
-          <IonTabButton  tab="cours" href='/cours'>
-            <IonIcon icon={trophyOutline}/>
-            <IonLabel>Cours</IonLabel>
-          </IonTabButton>
-        </IonTabBar>
-      </IonTabs>
     </IonReactRouter>
   </IonApp>
 );
